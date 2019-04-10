@@ -8,12 +8,15 @@ class Spree::Slide < ActiveRecord::Base
                     url: '/spree/slides/:id/:style/:basename.:extension',
                     path: ':rails_root/public/spree/slides/:id/:style/:basename.:extension',
                     convert_options: { all: '-strip -auto-orient -colorspace sRGB' }
+
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
   scope :published, -> { where(published: true).order('position ASC') }
   scope :location, -> (location) { joins(:slide_locations).where('spree_slide_locations.name = ?', location) }
 
-  belongs_to :product, touch: true
+  # belongs_to :product, touch: true
+
+  belongs_to :vendor, optional: true
 
   def initialize(attrs = nil)
     attrs ||= { published: true }
@@ -21,11 +24,11 @@ class Spree::Slide < ActiveRecord::Base
   end
 
   def slide_name
-    name.blank? && product.present? ? product.name : name
+    name.present? ? name : ""
   end
 
   def slide_link
-    link_url.blank? && product.present? ? product : link_url
+    link_url.present? ? link_url : ""
   end
 
   def slide_image

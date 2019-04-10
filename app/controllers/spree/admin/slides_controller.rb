@@ -10,11 +10,17 @@ module Spree
       private
 
       def location_after_save
+
+        if current_spree_vendor.present?
+          @slide.vendor = current_spree_vendor
+          @slide.save
+        end
         if @slide.created_at == @slide.updated_at
           edit_admin_slide_url(@slide)
         else
           admin_slides_url
         end
+        
       end
 
       def slide_params
