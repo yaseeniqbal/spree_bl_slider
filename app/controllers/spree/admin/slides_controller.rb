@@ -11,10 +11,11 @@ module Spree
 
       def location_after_save
 
-        if current_spree_vendor.present?
-          @slide.vendor = current_spree_vendor
+        if params[:slide].present? &&  params[:slide][:vendor_id].present?
+          @slide.vendor_id = params[:slide][:vendor_id]
           @slide.save
         end
+
         if @slide.created_at == @slide.updated_at
           edit_admin_slide_url(@slide)
         else
