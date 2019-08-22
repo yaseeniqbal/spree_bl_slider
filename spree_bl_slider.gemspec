@@ -6,7 +6,7 @@ require 'spree_bl_slider/version'
 
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'spree_dev_bl_slider'
+  s.name        = 'spree_bl_slider'
   s.version     = SpreeBlSlider.version
   s.summary     = 'Add extension summary here'
   s.description = 'Add (optional) extension description here'
